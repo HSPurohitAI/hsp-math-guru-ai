@@ -52,11 +52,10 @@ padding:12px 20px;
 border:0;
 border-radius:8px;
 font-size:16px;
-cursor:pointer;
 }
 
 #result{
-font-size:20px;
+font-size:18px;
 font-weight:bold;
 }
 </style>
@@ -85,31 +84,42 @@ font-weight:bold;
 <script>
 
 let quiz=[
+
 {
 q:"25 + 15 = ?",
 o:["30","40","50","35"],
-a:"40"
+a:"40",
+e:"25 માં 15 ઉમેરવું એટલે 25 + 10 = 35 અને પછી +5 = 40 થાય."
 },
+
 {
 q:"9 × 6 = ?",
 o:["45","54","56","60"],
-a:"54"
+a:"54",
+e:"9 ને 6 વખત ઉમેરવાથી: 9+9+9+9+9+9 = 54 થાય."
 },
+
 {
 q:"100 - 45 = ?",
 o:["55","65","45","50"],
-a:"55"
+a:"55",
+e:"100 માંથી 40 ઘટાડીએ તો 60 બચે અને 5 ઘટાડીએ તો 55 બચે."
 },
+
 {
 q:"12 × 5 = ?",
 o:["50","60","70","55"],
-a:"60"
+a:"60",
+e:"12 ને 5 વખત ઉમેરવાથી 12+12+12+12+12 = 60 થાય."
 },
+
 {
 q:"81 ÷ 9 = ?",
 o:["7","8","9","10"],
-a:"9"
+a:"9",
+e:"81 ને 9 સમાન ભાગમાં વહેંચીએ તો દરેક ભાગ 9 આવે."
 }
+
 ];
 
 
@@ -121,16 +131,15 @@ function showQuestion(){
 
 document.getElementById("question").innerHTML=quiz[index].q;
 
-let options="";
+let html="";
 
 quiz[index].o.forEach(function(item){
 
-options += "<div class='option' onclick=\"checkAnswer('"+item+"')\">"+item+"</div>";
+html += "<div class='option' onclick=\"checkAnswer('"+item+"')\">"+item+"</div>";
 
 });
 
-document.getElementById("options").innerHTML=options;
-
+document.getElementById("options").innerHTML=html;
 document.getElementById("result").innerHTML="";
 
 }
@@ -141,12 +150,15 @@ function checkAnswer(answer){
 if(answer==quiz[index].a){
 
 score++;
-document.getElementById("result").innerHTML="સાચો જવાબ 👍";
+document.getElementById("result").innerHTML="✅ સાચો જવાબ! ખૂબ સારું.";
 
 }
+
 else{
 
-document.getElementById("result").innerHTML="ખોટો જવાબ ❌ સાચો જવાબ: "+quiz[index].a;
+document.getElementById("result").innerHTML=
+"❌ ખોટો જવાબ<br>✅ સાચો જવાબ: "+quiz[index].a+
+"<br>📘 સમજણ: "+quiz[index].e;
 
 }
 
@@ -162,13 +174,15 @@ if(index<quiz.length){
 showQuestion();
 
 }
+
 else{
 
-document.getElementById("question").innerHTML="ક્વિઝ પૂર્ણ 🎉";
+document.getElementById("question").innerHTML="🎉 ક્વિઝ પૂર્ણ!";
 
-document.getElementById("options").innerHTML="તમારો સ્કોર: "+score+"/"+quiz.length;
+document.getElementById("options").innerHTML=
+"તમારો સ્કોર: "+score+"/"+quiz.length;
 
-document.getElementById("result").innerHTML="આભાર";
+document.getElementById("result").innerHTML="શાબાશ! ફરી પ્રયાસ કરતા રહો.";
 
 }
 
