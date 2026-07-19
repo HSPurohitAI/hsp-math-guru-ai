@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HSP MATH GURU AI</title>
+<title>HSP MATH GURU AI Quiz</title>
 <style>
 body{
-  font-family: Arial;
-  text-align:center;
-  background:#f2f7ff;
-  padding:20px;
-}
-h1{
-  color:#0066cc;
+font-family:Arial;
+text-align:center;
+background:#eef6ff;
+padding:20px;
 }
 .box{
-  background:white;
-  padding:20px;
-  border-radius:15px;
-  max-width:500px;
-  margin:auto;
+background:white;
+padding:20px;
+border-radius:15px;
+max-width:500px;
+margin:auto;
 }
-textarea{
-  width:90%;
-  height:100px;
-  font-size:18px;
-}
+h1{color:#0066cc;}
 button{
-  background:#0066cc;
-  color:white;
-  border:none;
-  padding:12px 25px;
-  font-size:18px;
-  border-radius:8px;
+background:#0066cc;
+color:white;
+padding:12px 20px;
+border:0;
+border-radius:8px;
+font-size:16px;
 }
-#answer{
-  margin-top:20px;
-  font-size:20px;
-  color:green;
+.option{
+display:block;
+margin:10px;
+padding:10px;
+background:#e8f1ff;
+border-radius:8px;
 }
 </style>
 </head>
@@ -43,29 +38,76 @@ button{
 <body>
 
 <div class="box">
+
 <h1>HSP MATH GURU AI</h1>
 
-<h3>તમારો ગણિતનો પ્રશ્ન લખો</h3>
+<h3>ધોરણ 3 થી 5 ગણિત ક્વિઝ</h3>
 
-<textarea id="question"></textarea>
-<br><br>
+<p id="question"></p>
 
-<button onclick="solve()">જવાબ મેળવો</button>
+<div id="options"></div>
 
-<div id="answer"></div>
+<p id="result"></p>
+
+<button onclick="nextQuestion()">આગળનો પ્રશ્ન</button>
 
 </div>
 
 <script>
-function solve(){
 
-let q=document.getElementById("question").value;
-
-document.getElementById("answer").innerHTML =
-"તમારો પ્રશ્ન: " + q + "<br><br>" +
-"આ પ્રશ્નનો જવાબ મેળવવા માટે AI ગણતરી કરશે.";
-
+let quiz=[
+{
+q:"25 + 15 = ?",
+o:["30","40","50","35"],
+a:"40"
+},
+{
+q:"9 × 6 = ?",
+o:["45","54","56","60"],
+a:"54"
+},
+{
+q:"100 માંથી 45 બાદ કરીએ તો કેટલું બચે?",
+o:["55","65","45","50"],
+a:"55"
 }
+];
+
+let i=0;
+let score=0;
+
+function show(){
+document.getElementById("question").innerHTML=quiz[i].q;
+
+let html="";
+quiz[i].o.forEach(x=>{
+html+=`<button class="option" onclick="check('${x}')">${x}</button>`;
+});
+
+document.getElementById("options").innerHTML=html;
+}
+
+function check(x){
+if(x==quiz[i].a){
+score++;
+document.getElementById("result").innerHTML="સાચો જવાબ 👍";
+}else{
+document.getElementById("result").innerHTML="ફરી પ્રયાસ કરો";
+}
+}
+
+function nextQuestion(){
+i++;
+if(i<quiz.length){
+show();
+}else{
+document.getElementById("question").innerHTML="ક્વિઝ પૂર્ણ!";
+document.getElementById("options").innerHTML="તમારો સ્કોર: "+score+"/"+quiz.length;
+}
+}
+
+show();
+
 </script>
 
 </body>
