@@ -2,9 +2,64 @@
 <html>
 <head>
   <title>HSP Math Guru AI</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f2f8ff;
+      padding: 30px;
+    }
+    h1 {
+      color: #0066cc;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px gray;
+      max-width: 500px;
+      margin: auto;
+    }
+    input {
+      padding: 10px;
+      width: 80%;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>🎉 HSP Math Guru AI</h1>
-  <p>મારી AI વેબસાઇટ સફળતાપૂર્વક શરૂ થઈ ગઈ!</p>
+
+<div class="box">
+<h1>🧮 HSP Math Guru AI</h1>
+
+<p>તમારો ગણિતનો પ્રશ્ન લખો:</p>
+
+<input type="text" id="question" placeholder="અહીં પ્રશ્ન લખો">
+
+<br>
+
+<button onclick="solve()">જવાબ મેળવો</button>
+
+<h3 id="answer"></h3>
+
+</div>
+
+<script>
+function solve(){
+let q = document.getElementById("question").value;
+document.getElementById("answer").innerHTML =
+"તમારો પ્રશ્ન: " + q + "<br>જલ્દી જ AI દ્વારા ઉકેલ મળશે!";
+}
+</script>
+
 </body>
 </html>
