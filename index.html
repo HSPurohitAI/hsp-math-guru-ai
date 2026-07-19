@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>HSP MATH GURU AI Quiz</title>
+
 <style>
 body{
 font-family:Arial;
@@ -9,14 +10,41 @@ text-align:center;
 background:#eef6ff;
 padding:20px;
 }
+
 .box{
 background:white;
 padding:20px;
 border-radius:15px;
 max-width:500px;
 margin:auto;
+box-shadow:0 0 10px #ccc;
 }
-h1{color:#0066cc;}
+
+h1{
+color:#0066cc;
+}
+
+#question{
+font-size:22px;
+font-weight:bold;
+}
+
+.option{
+display:block;
+width:90%;
+margin:12px auto;
+padding:12px;
+background:#e8f1ff;
+border-radius:10px;
+border:2px solid #0066cc;
+font-size:18px;
+cursor:pointer;
+}
+
+.option:hover{
+background:#cce3ff;
+}
+
 button{
 background:#0066cc;
 color:white;
@@ -24,15 +52,15 @@ padding:12px 20px;
 border:0;
 border-radius:8px;
 font-size:16px;
+cursor:pointer;
 }
-.option{
-display:block;
-margin:10px;
-padding:10px;
-background:#e8f1ff;
-border-radius:8px;
+
+#result{
+font-size:20px;
+font-weight:bold;
 }
 </style>
+
 </head>
 
 <body>
@@ -53,6 +81,7 @@ border-radius:8px;
 
 </div>
 
+
 <script>
 
 let quiz=[
@@ -67,46 +96,86 @@ o:["45","54","56","60"],
 a:"54"
 },
 {
-q:"100 માંથી 45 બાદ કરીએ તો કેટલું બચે?",
+q:"100 - 45 = ?",
 o:["55","65","45","50"],
 a:"55"
+},
+{
+q:"12 × 5 = ?",
+o:["50","60","70","55"],
+a:"60"
+},
+{
+q:"81 ÷ 9 = ?",
+o:["7","8","9","10"],
+a:"9"
 }
 ];
 
-let i=0;
+
+let index=0;
 let score=0;
 
-function show(){
-document.getElementById("question").innerHTML=quiz[i].q;
 
-let html="";
-quiz[i].o.forEach(x=>{
-html+=`<button class="option" onclick="check('${x}')">${x}</button>`;
+function showQuestion(){
+
+document.getElementById("question").innerHTML=quiz[index].q;
+
+let options="";
+
+quiz[index].o.forEach(function(item){
+
+options += "<div class='option' onclick=\"checkAnswer('"+item+"')\">"+item+"</div>";
+
 });
 
-document.getElementById("options").innerHTML=html;
+document.getElementById("options").innerHTML=options;
+
+document.getElementById("result").innerHTML="";
+
 }
 
-function check(x){
-if(x==quiz[i].a){
+
+function checkAnswer(answer){
+
+if(answer==quiz[index].a){
+
 score++;
 document.getElementById("result").innerHTML="સાચો જવાબ 👍";
-}else{
-document.getElementById("result").innerHTML="ફરી પ્રયાસ કરો";
+
 }
+else{
+
+document.getElementById("result").innerHTML="ખોટો જવાબ ❌ સાચો જવાબ: "+quiz[index].a;
+
 }
+
+}
+
 
 function nextQuestion(){
-i++;
-if(i<quiz.length){
-show();
-}else{
-document.getElementById("question").innerHTML="ક્વિઝ પૂર્ણ!";
-document.getElementById("options").innerHTML="તમારો સ્કોર: "+score+"/"+quiz.length;
+
+index++;
+
+if(index<quiz.length){
+
+showQuestion();
+
 }
+else{
+
+document.getElementById("question").innerHTML="ક્વિઝ પૂર્ણ 🎉";
+
+document.getElementById("options").innerHTML="તમારો સ્કોર: "+score+"/"+quiz.length;
+
+document.getElementById("result").innerHTML="આભાર";
+
 }
 
-show();
+}
+
+
+showQuestion();
 
 </script>
 
