@@ -191,3 +191,152 @@ showQuestion();
 
 </body>
 </html>
+<h2 id="title"></h2>
+
+<div id="quiz"></div>
+
+<div id="result"></div>
+
+<button id="next" onclick="nextQuestion()" style="display:none;">
+આગળનો પ્રશ્ન
+</button>
+
+</div>
+
+<script>
+
+let grade=0;
+let current=0;
+let score=0;
+
+let questions={
+
+3:[
+{
+q:"25 + 15 = ?",
+o:["30","40","45","50"],
+a:"40",
+e:"25 + 15 = 40"
+},
+{
+q:"5 × 6 = ?",
+o:["20","25","30","35"],
+a:"30",
+e:"5 ના 6 જૂથ એટલે 30"
+}
+],
+
+4:[
+{
+q:"125 + 75 = ?",
+o:["150","200","250","300"],
+a:"200",
+e:"125 + 75 = 200"
+},
+{
+q:"9 × 8 = ?",
+o:["64","72","81","90"],
+a:"72",
+e:"9 × 8 = 72"
+}
+],
+
+5:[
+{
+q:"એક કિલોમીટરમાં કેટલા મીટર હોય?",
+o:["100","500","1000","1500"],
+a:"1000",
+e:"1 કિલોમીટર = 1000 મીટર"
+},
+{
+q:"3/4 માં અંશ કયો છે?",
+o:["3","4","7","1"],
+a:"3",
+e:"અપૂર્ણાંકમાં ઉપરની સંખ્યા અંશ કહેવાય છે."
+}
+]
+
+};
+
+
+function startQuiz(g){
+
+grade=g;
+current=0;
+score=0;
+
+document.getElementById("info").innerHTML=
+"ધોરણ "+g+" ની ક્વિઝ શરૂ";
+
+showQuestion();
+
+}
+
+
+function showQuestion(){
+
+let q=questions[grade][current];
+
+document.getElementById("title").innerHTML=q.q;
+
+let html="";
+
+q.o.forEach(function(x){
+
+html += `<button onclick="check('${x}')">${x}</button>`;
+
+});
+
+document.getElementById("quiz").innerHTML=html;
+
+document.getElementById("result").innerHTML="";
+
+document.getElementById("next").style.display="none";
+
+}
+
+
+function check(ans){
+
+let q=questions[grade][current];
+
+if(ans==q.a){
+
+score++;
+
+document.getElementById("result").innerHTML=
+"✅ સાચો જવાબ<br>"+q.e;
+
+}
+
+else{
+
+document.getElementById("result").innerHTML=
+"❌ ખોટો જવાબ<br>સાચો જવાબ: "+q.a+"<br>"+q.e;
+
+}
+
+document.getElementById("next").style.display="block";
+
+}
+
+
+function nextQuestion(){
+
+current++;
+
+if(current>=questions[grade].length){
+
+alert("ક્વિઝ પૂર્ણ! તમારો સ્કોર: "+score);
+return;
+
+}
+
+showQuestion();
+
+}
+
+</script>
+
+</body>
+</html>
