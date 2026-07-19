@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HSP MATH GURU AI Quiz</title>
+<title>HSP MATH GURU AI</title>
 
 <style>
 body{
@@ -12,7 +12,7 @@ padding:20px;
 }
 
 h1{
-color:#1565c0;
+color:#0057b8;
 }
 
 .box{
@@ -21,57 +21,53 @@ padding:20px;
 border-radius:15px;
 max-width:500px;
 margin:auto;
-box-shadow:0 0 10px #aaa;
+box-shadow:0 0 10px gray;
 }
 
-button{
+select,button{
+padding:10px;
+font-size:18px;
+margin:10px;
+}
+
+.option{
 display:block;
 width:90%;
 margin:10px auto;
-padding:12px;
-font-size:18px;
-border-radius:10px;
-border:none;
-background:#1976d2;
-color:white;
-}
-
-button:hover{
-background:#0d47a1;
+background:#e8f0ff;
+border:1px solid #0057b8;
+border-radius:8px;
+cursor:pointer;
 }
 
 #result{
-font-size:18px;
+font-size:20px;
 font-weight:bold;
-margin-top:15px;
-}
-
-#explain{
-background:#fff3cd;
-padding:10px;
-border-radius:10px;
-margin-top:10px;
 }
 </style>
+
 </head>
 
 <body>
 
-<h1>HSP MATH GURU AI</h1>
-
 <div class="box">
 
-<h3>તમારો ગણિતનો પ્રશ્ન:</h3>
+<h1>HSP MATH GURU AI</h1>
+
+<h3>ધોરણ પસંદ કરો</h3>
+
+<select id="std" onchange="startQuiz()">
+<option value="">-- પસંદ કરો --</option>
+<option value="3">ધોરણ 3</option>
+<option value="4">ધોરણ 4</option>
+<option value="5">ધોરણ 5</option>
+</select>
 
 <h2 id="question"></h2>
 
 <div id="options"></div>
 
-<div id="result"></div>
-
-<div id="explain"></div>
-
-<h3 id="score"></h3>
+<p id="result"></p>
 
 <button onclick="nextQuestion()">આગળનો પ્રશ્ન</button>
 
@@ -80,40 +76,70 @@ margin-top:10px;
 
 <script>
 
-let score=0;
+let questions=[];
 
-let questions=[
+let current=0;
+
+
+function startQuiz(){
+
+let std=document.getElementById("std").value;
+
+if(std=="3"){
+questions=[
 {
 q:"25 + 15 = ?",
 o:["30","40","45","50"],
 a:"40",
-e:"25 + 15 કરીએ તો 25 માં 10 ઉમેરવાથી 35 અને બાકી 5 ઉમેરવાથી 40 થાય છે."
+e:"25 માં 15 ઉમેરવાથી 40 થાય છે."
 },
-
 {
-q:"8 × 6 = ?",
-o:["42","48","56","64"],
-a:"48",
-e:"8 ના 6 જૂથ એટલે 8+8+8+8+8+8 = 48."
-},
-
-{
-q:"100 માંથી 35 બાદ કરીએ તો કેટલા બચે?",
-o:["55","65","75","85"],
-a:"65",
-e:"100 - 35 = 65. એટલે 35 ઘટાડ્યા પછી 65 બચે છે."
-},
-
-{
-q:"એક ત્રિકોણને કેટલી બાજુ હોય છે?",
-o:["2","3","4","5"],
-a:"3",
-e:"ત્રિકોણમાં 3 બાજુ અને 3 ખૂણા હોય છે."
+q:"50 - 20 = ?",
+o:["20","25","30","35"],
+a:"30",
+e:"50 માંથી 20 બાદ કરીએ તો 30 બચે."
+}
+];
 }
 
+if(std=="4"){
+questions=[
+{
+q:"12 × 5 = ?",
+o:["50","60","70","80"],
+a:"60",
+e:"12 ને 5 વડે ગુણવાથી 60 થાય છે."
+},
+{
+q:"100 ÷ 4 = ?",
+o:["20","25","30","40"],
+a:"25",
+e:"100 ને 4 ભાગમાં વહેંચીએ તો 25 આવે."
+}
 ];
+}
 
-let current=0;
+if(std=="5"){
+questions=[
+{
+q:"15 × 8 = ?",
+o:["100","110","120","130"],
+a:"120",
+e:"15 × 8 = 120"
+},
+{
+q:"એક કિલોમીટર કેટલા મીટર?",
+o:["100","500","1000","1500"],
+a:"1000",
+e:"1 કિલોમીટર = 1000 મીટર"
+}
+];
+}
+
+current=0;
+showQuestion();
+
+}
 
 
 function showQuestion(){
@@ -124,215 +150,53 @@ document.getElementById("question").innerHTML=q.q;
 
 let html="";
 
-q.o.forEach(function(option){
+q.o.forEach(function(x){
 
-html += `<button onclick="check('${option}')">${option}</button>`;
+html+=`<button class="option" onclick="check('${x}')">${x}</button>`;
 
 });
 
 document.getElementById("options").innerHTML=html;
 
 document.getElementById("result").innerHTML="";
-document.getElementById("explain").innerHTML="";
-
-document.getElementById("score").innerHTML="સ્કોર: "+score;
-
-}
-
-
-function check(answer){
-
-let q=questions[current];
-
-if(answer==q.a){
-
-score++;
-
-document.getElementById("result").innerHTML="✅ સાચો જવાબ!";
-
-document.getElementById("explain").innerHTML=q.e;
-
-}
-
-else{
-
-document.getElementById("result").innerHTML="❌ ખોટો જવાબ";
-
-document.getElementById("explain").innerHTML=
-"સાચો જવાબ: "+q.a+"<br><br>સમજણ: "+q.e;
-
-}
-
-}
-
-
-function nextQuestion(){
-
-current++;
-
-if(current>=questions.length){
-
-current=0;
-
-alert("ક્વિઝ પૂર્ણ! તમારો સ્કોર: "+score);
-
-score=0;
-
-}
-
-showQuestion();
-
-}
-
-
-showQuestion();
-
-</script>
-
-</body>
-</html>
-<h2 id="title"></h2>
-
-<div id="quiz"></div>
-
-<div id="result"></div>
-
-<button id="next" onclick="nextQuestion()" style="display:none;">
-આગળનો પ્રશ્ન
-</button>
-
-</div>
-
-<script>
-
-let grade=0;
-let current=0;
-let score=0;
-
-let questions={
-
-3:[
-{
-q:"25 + 15 = ?",
-o:["30","40","45","50"],
-a:"40",
-e:"25 + 15 = 40"
-},
-{
-q:"5 × 6 = ?",
-o:["20","25","30","35"],
-a:"30",
-e:"5 ના 6 જૂથ એટલે 30"
-}
-],
-
-4:[
-{
-q:"125 + 75 = ?",
-o:["150","200","250","300"],
-a:"200",
-e:"125 + 75 = 200"
-},
-{
-q:"9 × 8 = ?",
-o:["64","72","81","90"],
-a:"72",
-e:"9 × 8 = 72"
-}
-],
-
-5:[
-{
-q:"એક કિલોમીટરમાં કેટલા મીટર હોય?",
-o:["100","500","1000","1500"],
-a:"1000",
-e:"1 કિલોમીટર = 1000 મીટર"
-},
-{
-q:"3/4 માં અંશ કયો છે?",
-o:["3","4","7","1"],
-a:"3",
-e:"અપૂર્ણાંકમાં ઉપરની સંખ્યા અંશ કહેવાય છે."
-}
-]
-
-};
-
-
-function startQuiz(g){
-
-grade=g;
-current=0;
-score=0;
-
-document.getElementById("info").innerHTML=
-"ધોરણ "+g+" ની ક્વિઝ શરૂ";
-
-showQuestion();
-
-}
-
-
-function showQuestion(){
-
-let q=questions[grade][current];
-
-document.getElementById("title").innerHTML=q.q;
-
-let html="";
-
-q.o.forEach(function(x){
-
-html += `<button onclick="check('${x}')">${x}</button>`;
-
-});
-
-document.getElementById("quiz").innerHTML=html;
-
-document.getElementById("result").innerHTML="";
-
-document.getElementById("next").style.display="none";
 
 }
 
 
 function check(ans){
 
-let q=questions[grade][current];
+let q=questions[current];
 
 if(ans==q.a){
 
-score++;
-
-document.getElementById("result").innerHTML=
-"✅ સાચો જવાબ<br>"+q.e;
+document.getElementById("result").innerHTML="✅ સાચો જવાબ! "+q.e;
 
 }
 
 else{
 
-document.getElementById("result").innerHTML=
-"❌ ખોટો જવાબ<br>સાચો જવાબ: "+q.a+"<br>"+q.e;
+document.getElementById("result").innerHTML="❌ ખોટો જવાબ. સાચો જવાબ: "+q.a+"<br>"+q.e;
 
 }
-
-document.getElementById("next").style.display="block";
 
 }
 
 
 function nextQuestion(){
 
+if(current < questions.length-1){
+
 current++;
 
-if(current>=questions[grade].length){
-
-alert("ક્વિઝ પૂર્ણ! તમારો સ્કોર: "+score);
-return;
+showQuestion();
 
 }
 
-showQuestion();
+else{
+
+document.getElementById("result").innerHTML="🎉 ક્વિઝ પૂર્ણ થઈ.";
+
+}
 
 }
 
