@@ -204,3 +204,79 @@ document.getElementById("result").innerHTML="🎉 ક્વિઝ પૂર્�
 
 </body>
 </html>
+let score = 0;
+let current = 0;
+
+const quiz = [
+
+{
+question:"15 + 7 = ?",
+options:["20","22","23","24"],
+answer:1,
+explanation:"15 + 7 = 22"
+},
+
+{
+question:"36 - 18 = ?",
+options:["16","17","18","19"],
+answer:2,
+explanation:"36 માંથી 18 બાદ કરીએ તો 18 થાય."
+},
+
+{
+question:"8 × 6 = ?",
+options:["42","46","48","56"],
+answer:2,
+explanation:"8 × 6 = 48"
+},
+
+{
+question:"45 ÷ 5 = ?",
+options:["8","9","10","11"],
+answer:1,
+explanation:"45 ÷ 5 = 9"
+},
+
+{
+question:"100 માં 25 ઉમેરો.",
+options:["115","120","125","130"],
+answer:2,
+explanation:"100 + 25 = 125"
+}
+
+];
+
+function showQuestion(){
+
+document.getElementById("result").innerHTML="";
+document.getElementById("explanation").innerHTML="";
+
+let q=quiz[current];
+
+document.getElementById("question").innerHTML=
+"પ્રશ્ન "+(current+1)+" : "+q.question;
+
+let html="";
+
+for(let i=0;i<q.options.length;i++){
+
+html+=`<button class="option"
+onclick="checkAnswer(${i})">${q.options[i]}</button>`;
+
+}
+
+document.getElementById("options").innerHTML=html;
+
+}
+
+function checkAnswer(ans){
+
+let q=quiz[current];
+
+if(ans===q.answer){
+
+document.getElementById("result").innerHTML="✅
+</script>
+
+</body>
+</html>
